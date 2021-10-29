@@ -1,46 +1,38 @@
-package br.com.restapi.model;
+package br.com.restapi.model.vo.v2;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class PessoaV2VO implements Serializable {
+	
+	private static final long serialVersionUID = -6271460228683594714L;
 
-
-@Entity
-@Table(name = "PESSOA")
-public class Pessoa implements Serializable {
-
-	private static final long serialVersionUID = -5111350775588333793L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NOME", nullable = false, length = 50)
 	private String nome;
 
-	@Column(name = "SOBRENOME", nullable = false, length = 50)
 	private String sobreNome;
 	
-	@Column(name = "DTNASCIMENTO", nullable = true)
 	private Date dtNascimento;
 
-	@Column(name = "ENDERECO", nullable = false, length = 100)
 	private String endereco;
 
-	@Column(name = "GENERO", nullable = false, length = 1)
 	private String genero;
+	
+	public PessoaV2VO(Long id, String nome, String sobreNome, Date dtNascimento, String endereco, String genero) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sobreNome = sobreNome;
+		this.dtNascimento = dtNascimento;
+		this.endereco = endereco;
+		this.genero = genero;
+	}
 
-	public Pessoa() {
+	public PessoaV2VO() {
 		super();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -65,6 +57,14 @@ public class Pessoa implements Serializable {
 		this.sobreNome = sobreNome;
 	}
 
+	public Date getDtNascimento() {
+		return dtNascimento;
+	}
+
+	public void setDtNascimento(Date dtNascimento) {
+		this.dtNascimento = dtNascimento;
+	}
+
 	public String getEndereco() {
 		return endereco;
 	}
@@ -79,24 +79,6 @@ public class Pessoa implements Serializable {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
-	}
-
-	public Pessoa(Long id, String nome, String sobreNome, Date dtNascimento, String endereco, String genero) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.sobreNome = sobreNome;
-		this.dtNascimento = dtNascimento;
-		this.endereco = endereco;
-		this.genero = genero;
-	}
-
-	public Date getDtNascimento() {
-		return dtNascimento;
-	}
-
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
 	}
 
 	@Override
@@ -120,7 +102,7 @@ public class Pessoa implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pessoa other = (Pessoa) obj;
+		PessoaV2VO other = (PessoaV2VO) obj;
 		if (dtNascimento == null) {
 			if (other.dtNascimento != null)
 				return false;
@@ -153,5 +135,4 @@ public class Pessoa implements Serializable {
 			return false;
 		return true;
 	}
-
 }

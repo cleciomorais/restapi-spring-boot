@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.restapi.converter.DozerConverter;
-import br.com.restapi.model.Pessoa;
 import br.com.restapi.model.vo.PessoaVO;
+import br.com.restapi.model.vo.v2.PessoaV2VO;
 import br.com.restapi.services.PessoaService;
 
 @RestController
@@ -29,14 +28,13 @@ public class PessoaController {
 //	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping("/{id}")
 	public PessoaVO findById(@PathVariable("id") Long id) {
-		Pessoa pes = pessoaService.findById(id); 
-		return DozerConverter.parseObject(pes, PessoaVO.class);
+		return pessoaService.findById(id);  
 	}
 
 //	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@GetMapping("/all")
 	public List<PessoaVO> findAll() {
-		return DozerConverter.parseListObjects(pessoaService.findAll() , PessoaVO.class);
+		return pessoaService.findAll();
 	}
 	
 //	@RequestMapping(value = "/add", method = RequestMethod.POST, 
@@ -44,8 +42,12 @@ public class PessoaController {
 //					consumes = MediaType.APPLICATION_JSON_VALUE )
 	@PostMapping("/add")
 	public PessoaVO add(@RequestBody PessoaVO pessoa) {
-		Pessoa pes = DozerConverter.parseObject(pessoa, Pessoa.class);
-		return DozerConverter.parseObject( pessoaService.add(pes), PessoaVO.class);
+		return pessoaService.add(pessoa);
+	}
+	
+	@PostMapping("/add/v2")
+	public PessoaV2VO addV2(@RequestBody PessoaV2VO pessoa) {
+		return pessoaService.addV2(pessoa);
 	}
 	
 //	@RequestMapping(value = "/update", method = RequestMethod.PUT, 
@@ -53,8 +55,7 @@ public class PessoaController {
 //			consumes = MediaType.APPLICATION_JSON_VALUE )
 	@PutMapping("/update")
 	public PessoaVO update(@RequestBody PessoaVO pessoa) {
-		Pessoa pes = DozerConverter.parseObject(pessoa, Pessoa.class);
-		return DozerConverter.parseObject( pessoaService.update(pes), PessoaVO.class);
+		return pessoaService.update(pessoa);
 	}
 	
 //	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
