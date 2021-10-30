@@ -2,6 +2,11 @@ package br.com.restapi.model.vo;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"id","nome", "sobre_nome_custom", "genero", "endereco_custom"})
 public class PessoaVO implements Serializable {
 
 	private static final long serialVersionUID = -8221857483413831263L;
@@ -10,16 +15,19 @@ public class PessoaVO implements Serializable {
 
 	private String nome;
 
+	@JsonProperty("sobre_nome_custom")
+	private String sobreNome;
+
+	@JsonProperty("endereco_custom")
+	private String endereco;
+
+	@JsonIgnore
+	private String genero;
+
 	public PessoaVO() {
 		super();
 	}
-
-	private String sobreNome;
-
-	private String endereco;
-
-	private String genero;
-
+	
 	public Long getId() {
 		return id;
 	}
