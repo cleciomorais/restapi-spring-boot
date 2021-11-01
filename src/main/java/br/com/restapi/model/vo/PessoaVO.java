@@ -2,7 +2,6 @@ package br.com.restapi.model.vo;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -21,7 +20,7 @@ public class PessoaVO implements Serializable {
 	@JsonProperty("endereco_custom")
 	private String endereco;
 
-	@JsonIgnore
+	//@JsonIgnore
 	private String genero;
 
 	public PessoaVO() {
