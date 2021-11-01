@@ -24,24 +24,24 @@ public class PessoaControllerV4ContentNegotiation {
 	@Autowired
 	PessoaService pessoaService;
 	
-	@GetMapping(value = "get/{id}", produces = {"application/json","application/xml"})
+	@GetMapping(value = "get/{id}", produces = {"application/json","application/xml", "application/x-yaml"})
 	public PessoaVO findById(@PathVariable("id") Long id) {
 		return pessoaService.findById(id);  
 	}
 
-	@GetMapping(value = "/all", produces = {"application/json", "application/xml"})
+	@GetMapping(value = "/all", produces = {"application/json", "application/xml", "application/x-yaml"})
 	public List<PessoaVO> findAll() {
 		return pessoaService.findAll();
 	}
 	
-	@PostMapping(value = "/add", produces = {"application/json", "application/xml"}
-							   , consumes = {"application/json", "application/xml"})
+	@PostMapping(value = "/add", produces = {"application/json", "application/xml", "application/x-yaml"}
+							   , consumes = {"application/json", "application/xml", "application/x-yaml"})
 	public PessoaVO add(@RequestBody PessoaVO pessoa) {
 		return pessoaService.add(pessoa);
 	}
 
-	@PutMapping(value = "/update", produces = {"application/json", "application/xml"}
-	   							 , consumes = {"application/json", "application/xml"})
+	@PutMapping(value = "/update", produces = {"application/json", "application/xml", "application/x-yaml"}
+	   							 , consumes = {"application/json", "application/xml", "application/x-yaml"})
 	public PessoaVO update(@RequestBody PessoaVO pessoa) {
 		return pessoaService.update(pessoa);
 	}
