@@ -30,11 +30,6 @@ public class PessoaService {
 		return DozerConverter.parseObject(pes, PessoaVO.class);
 	}
 	
-	public PessoaV3VO findV3ById(Long id) {
-		Pessoa pes = pessoaRepo.findById( id ).orElseThrow(() -> new  RegistroNaoEncontradoException("Registro não encontrado!"));
-		return DozerConverter.parseObject(pes, PessoaV3VO.class);
-	}
-	
 	public List<PessoaVO> findAll() {
 		return DozerConverter.parseListObjects(pessoaRepo.findAll() , PessoaVO.class);
 	}
@@ -47,20 +42,6 @@ public class PessoaService {
 	public PessoaV2VO addV2(PessoaV2VO pessoa) {
 		Pessoa pes = DozerConverter.parseObject(pessoa, Pessoa.class);
 		return DozerConverter.parseObject(pessoaRepo.save(pes), PessoaV2VO.class);
-	}
-	
-	public PessoaV3VO addV3(PessoaV3VO pessoa) {
-		Pessoa pes = DozerConverter.parseObject(pessoa, Pessoa.class);
-		
-		List<Endereco> enderecos = pes.getEnderecos(); 
-		pes.setEnderecos( new ArrayList<Endereco>());
-		
-		for (Endereco endereco : enderecos) {
-			endereco.setPessoa(pes);
-			pes.getEnderecos().add(endereco);
-		}
-		
-		return DozerConverter.parseObject(pessoaRepo.save(pes), PessoaV3VO.class);
 	}
 	
 	public PessoaVO update(PessoaVO pessoa) {
@@ -86,5 +67,34 @@ public class PessoaService {
 		return DozerConverter.parseListObjects(pessoaRepo.findAll() , PessoaV3VO.class);
 	}
 	
+	public PessoaV3VO findV3ById(Long id) {
+		Pessoa pes = pessoaRepo.findById( id ).orElseThrow(() -> new  RegistroNaoEncontradoException("Registro não encontrado!"));
+		return DozerConverter.parseObject(pes, PessoaV3VO.class);
+	}
+	
+	public PessoaV3VO addV3(PessoaV3VO pessoa) {
+		Pessoa pes = DozerConverter.parseObject(pessoa, Pessoa.class);
+		
+		List<Endereco> enderecos = pes.getEnderecos(); 
+		pes.setEnderecos( new ArrayList<Endereco>());
+		
+		for (Endereco endereco : enderecos) {
+			endereco.setPessoa(pes);
+			pes.getEnderecos().add(endereco);
+		}
+		
+		return DozerConverter.parseObject(pessoaRepo.save(pes), PessoaV3VO.class);
+	}
+	
+	public PessoaV3VO updateV3(PessoaV3VO pessoa) {
+		Pessoa entidade = pessoaRepo.findById( pessoa.getId() ).orElseThrow(() -> new  RegistroNaoEncontradoException("Registro não encontrado!")) ;
+		
+		entidade.setNome(pessoa.getNome());
+		entidade.setSobreNome(pessoa.getSobreNome());
+		entidade.setGenero(pessoa.getGenero());
+		entidade.setDtNascimento(pessoa.getDtNascimento());
+		
+		return DozerConverter.parseObject(pessoaRepo.save(entidade), PessoaV3VO.class);
+	}
 	
 }
